@@ -1,9 +1,9 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - microblog</title>
+        <title>{{ title }} - webshop</title>
         {% else %}
-        <title>microblog</title>
+        <title>webshop</title>
         {% endif %}
     </head>
     <body>
@@ -11,6 +11,7 @@
             Webshop ig:
             <a href="/index">Home</a>
             <a href="/login">Login</a>
+            <a href="/kurv"; style="padding-left: 85%;">Kurv</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
