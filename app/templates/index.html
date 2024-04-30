@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<link rel="stylesheet" href="css/index.css">
+
+{{ form.hidden_tag() }}
     <h1>Hi, {{ user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+<div class="item">
+<p>
+    Cool book or something <br>
+    {{ form.buyBtn() }}
+    
+</p>
+</div>
 {% endblock %}
