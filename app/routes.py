@@ -13,7 +13,6 @@ from urllib.parse import urlsplit
 @login_required
 def index():
     form = Items()
-    user="whatever"
     return render_template("index.html", title='Home Page', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])

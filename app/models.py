@@ -27,3 +27,11 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
+
+
+class items(db.model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    name: so.Mapped[str] = so.mapped_column(sa.string(64), index=True, unique=False)
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
