@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 import sqlalchemy as sa
 from app import db
 from app.models import User
@@ -35,3 +35,10 @@ class RegistrationForm(FlaskForm):
             User.email == email.data))
         if user is not None:
             raise ValidationError('Please use a different email address.')
+        
+class AddBookForm(FlaskForm):
+    book_name = StringField('Book name', validators=[DataRequired()])
+    book_author = StringField('Author', validators=[DataRequired()])
+    book_release = StringField('Release year', validators=[DataRequired(), Length(min=4, max=4, message=None)])
+    book_pris = StringField('Price', validators=[DataRequired()])
+    submit = SubmitField('Submit book')       

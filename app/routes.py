@@ -1,10 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
-from app.forms import LoginForm, Items, RegistrationForm
+from app.forms import LoginForm, Items, RegistrationForm, AddBookForm
 from flask_login import current_user, login_user
 import sqlalchemy as sa
 from app import db
-from app.models import User
+from app.models import User, book
 from flask_login import logout_user, login_required
 from urllib.parse import urlsplit
 
@@ -13,7 +13,8 @@ from urllib.parse import urlsplit
 @login_required
 def index():
     form = Items()
-    return render_template("index.html", title='Home Page', form=form)
+    books = book.query.all()
+    return render_template("index.html", title='Home Page', form=form, books=books)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -57,3 +58,13 @@ def logout():
 def kurv():
     form = LoginForm()
     return render_template('kurv.html', title='Kurv', form=form)
+
+@app.route('/addbook', methods=['GET', 'POST'])
+def addbook():
+    form = AddBookForm()
+    if form.validate_on_submit():
+        Book = book(name=form.book_name.data, author=form.book_author.data, release_year=form.book_release.data, pris=form.book_pris.data)
+        db.session.add(Book)
+        db.session.commit()
+        flash('Congratulations, your book is now registered!')
+    return render_template('addbook.html', title='addbook', form=form)
