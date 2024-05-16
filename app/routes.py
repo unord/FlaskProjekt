@@ -4,7 +4,7 @@ from app.forms import LoginForm, Items, RegistrationForm, AddBookForm
 from flask_login import current_user, login_user
 import sqlalchemy as sa
 from app import db
-from app.models import User, book
+from app.models import User, book, cart
 from flask_login import logout_user, login_required
 from urllib.parse import urlsplit
 
@@ -56,8 +56,33 @@ def logout():
 
 @app.route('/kurv', methods=['GET', 'POST'])
 def kurv():
-    form = LoginForm()
-    return render_template('kurv.html', title='Kurv', form=form)
+    cart_items = cart.query.filter_by(user_id=current_user.id).all()
+    return render_template('kurv.html', title='Kurv', cart_items=cart_items)
+
+@app.route('/tiloej/kurv/<int:book_id>', methods=['GET', 'POST'])
+def tilføj_til_kurv(book_id):
+    product = book.query.get_or_404(book_id)
+    quantity = int(request.form.get('quantity', 1))
+
+    cart_item = cart.query.filter_by(user_id=current_user.id, book_id=product.id).first()
+    if cart_item:
+        cart_item.quantity += quantity
+    else:
+        cart_item = cart(user_id=current_user.id, quantity=quantity, book_id=product.id)
+        db.session.add(cart_item)
+    db.session.commit()    
+   
+    return redirect(url_for("kurv"))
+
+@app.route('/fjern/kurv/<int:cart_item_id>', methods=['POST'])
+def fjern_fra_kurv(cart_item_id):
+    cart_item = cart.query.get_or_404(cart_item_id)
+    if cart_item.user_id != current_user.id:
+        return redirect(url_for('kurv'))
+
+    db.session.delete(cart_item)
+    db.session.commit()
+    return redirect(url_for("kurv"))
 
 @app.route('/addbook', methods=['GET', 'POST'])
 def addbook():
