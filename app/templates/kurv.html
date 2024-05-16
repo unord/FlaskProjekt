@@ -1,8 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ form.hidden_tag() }}
-<p>
-Her ville kurven være hvis vi havde en
-</p>
+<h1>
+    Your Cart
+</h1>
+<ul>
+{% for item in cart_items %}
+
+{{ item.book.name }} - {{ item.book.pris }} x {{ item.quantity }}
+
+<form action="{{ url_for('fjern_fra_kurv', cart_item_id=item.id) }}" method="post">
+    <button type="submit">Remove</button>
+</form>
+</li>
+{% endfor %}
+</ul>
+
+<a href="{{ url_for('index') }}">Continue Shopping</a>
 {% endblock %}
