@@ -64,17 +64,17 @@ def tilføj_til_kurv(book_id):
     product = book.query.get_or_404(book_id)
     quantity = int(request.form.get('quantity', 1))
 
-    cart_item = cart.query.filter_by(user_id=current_user.id, book_id=book.id).first()
+    cart_item = cart.query.filter_by(user_id=current_user.id, book_id=product.id).first()
     if cart_item:
         cart_item.quantity += quantity
     else:
         cart_item = cart(user_id=current_user.id, quantity=quantity, book_id=product.id)
         db.session.add(cart_item)
-        db.session.commit()    
+    db.session.commit()    
    
     return redirect(url_for("kurv"))
 
-@app.route('/fjern/kurv/<int:book_id>', methods=['GET', 'POST'])
+@app.route('/fjern/kurv/<int:cart_item_id>', methods=['POST'])
 def fjern_fra_kurv(cart_item_id):
     cart_item = cart.query.get_or_404(cart_item_id)
     if cart_item.user_id != current_user.id:
