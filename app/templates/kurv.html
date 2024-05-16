@@ -6,14 +6,16 @@
 </h1>
 <ul>
 {% for item in cart_items %}
-
-{{ item.book.name }} - {{ item.book.pris }} x {{ item.quantity }}
+<li style="border: solid; border-radius: 10px; width: 10%;">
+<p>Book name: {{ item.book.name }} by {{ item.book.author }} <br><br>Price {{ item.book.pris }}DKK <br><br> amount: {{ item.quantity }}x</p>
 
 <form action="{{ url_for('fjern_fra_kurv', cart_item_id=item.id) }}" method="post">
     <button type="submit">Remove</button>
 </form>
 </li>
+<br>
 {% endfor %}
+
 </ul>
 
 <a href="{{ url_for('index') }}">Continue Shopping</a>

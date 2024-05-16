@@ -6,19 +6,19 @@
 
     <h1>Hi, {{ current_user.username }}!</h1>
 {% for book in books %}
-    <div class="books">
+    <div class="books" style="border: solid; border-radius: 10px; width: 15%;">
         <p> Book Id:
         <br> {{ book.id }}</p>
         <p>Name of book:
         <br> {{ book.name }} </p>
         <p>Author and release year:
         <br> {{ book.author }} written in {{ book.release_year }}</p>
-        
+        <P> Price: {{ book.pris }},-DKK</p>
         <form action="{{ url_for('tilføj_til_kurv', book_id=book.id) }}" method="post">
             <input type="number" name="quantity" value="1" min="1" max="10">
             <button type="submit">Add to Cart</button>
         </form>
-            <P> Price: {{ book.pris }},-DKK</p>
+            
     </div>
     <br>
 {% endfor %}
