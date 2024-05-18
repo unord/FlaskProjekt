@@ -10,7 +10,7 @@ from flask_login import UserMixin
 from app import login
 from typing import List
 
-
+#Databasen for bruger på hjemmesiden
 class User(UserMixin, db.Model):
     __tablename__ = "User"
 
@@ -23,12 +23,15 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
     
+#Lavede til at hash password
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-
+        
+#Til at tjekke hashed password
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
+    
+#Database for bøger
 class book(db.Model):
     __tablename__ = "book"
 
@@ -42,7 +45,8 @@ class book(db.Model):
 
     def __repr__(self):
         return f'<Book {self.name}>'
-
+    
+#Kurvens database
 class cart(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     quantity: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)

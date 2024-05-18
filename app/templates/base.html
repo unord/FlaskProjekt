@@ -9,14 +9,22 @@
     </head>
     <body>
         <div>
-            Webshop ig:
-            <a href="{{ url_for('index') }}">Home</a>
+            Book shop:
+            <form action="{{ url_for('index') }}" method="get">
+            <button style="position: absolute; left: auto;">Home</button>
+        </form>
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
+            <form action="{{ url_for('login') }}" method="get">
+                <button style="position: fixed;float: right;">Login</button>
+            </form>
             {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <form action="{{ url_for('logout') }}" method="get">
+                <button>logout</button>
+            </form>
             {% endif %}
-            <a href="{{ url_for('kurv') }}"; style="padding-left: 85%;">Kurv</a>
+            <form action="{{ url_for('kurv') }}" method="get">
+                <button>Cart</button>
+            </form>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
