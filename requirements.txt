@@ -7,3 +7,4 @@ Flask_migrate
 Werkzeug
 sqlalchemy
 Flask_sqlalchemy
+email_validator
