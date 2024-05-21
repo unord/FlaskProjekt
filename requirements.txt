@@ -1,0 +1,9 @@
+# Her finder du de biblioteker som der brugt til at lave hjemmesiden
+
+Flask
+Flask_wtf
+Flask_login
+Flask_migrate
+Werkzeug
+sqlalchemy
+Flask_sqlalchemy

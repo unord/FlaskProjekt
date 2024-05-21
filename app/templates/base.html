@@ -8,22 +8,22 @@
         {% endif %}
     </head>
     <body>
-        <div>
-            Book shop:
+        Book shop:
+        <div style="display: flex;">
             <form action="{{ url_for('index') }}" method="get">
-            <button style="position: absolute; left: auto;">Home</button>
+            <button>Home</button>
         </form>
             {% if current_user.is_anonymous %}
             <form action="{{ url_for('login') }}" method="get">
-                <button style="position: fixed;float: right;">Login</button>
+                <button>Login</button>
             </form>
             {% else %}
-            <form action="{{ url_for('logout') }}" method="get">
+            <form action="{{ url_for('logout') }}" method="get" style="margin-left: 5px;">
                 <button>logout</button>
             </form>
             {% endif %}
-            <form action="{{ url_for('kurv') }}" method="get">
-                <button>Cart</button>
+            <form action="{{ url_for('kurv') }}" method="get" style="margin-left: 89%;">
+                <button >Cart</button>
             </form>
         </div>
         <hr>

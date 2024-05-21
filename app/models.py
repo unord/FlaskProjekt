@@ -1,4 +1,3 @@
-from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -8,7 +7,6 @@ from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
-from typing import List
 
 #Databasen for bruger på hjemmesiden
 class User(UserMixin, db.Model):
@@ -51,7 +49,7 @@ class cart(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     quantity: so.Mapped[int] = so.mapped_column(sa.Integer, nullable=False)
     user_id: so.Mapped[int] = so.mapped_column(ForeignKey("User.id"), nullable=False)
-    book_id: so.Mapped[int] = so.mapped_column(ForeignKey("book.id"), nullable=True)
+    book_id: so.Mapped[int] = so.mapped_column(ForeignKey("book.id"), nullable=False)
 
     user: so.Mapped["User"] = relationship(back_populates="cart_items")
     book: so.Mapped["book"] = relationship()
